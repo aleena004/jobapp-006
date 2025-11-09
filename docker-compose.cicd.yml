@@ -1,0 +1,28 @@
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: ci_mongo
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: ci_backend
+    ports:
+      - "6000:4000"
+    environment:
+      - MONGO_URI=mongodb://ci_mongo:27017/myappdb
+      - FRONTEND_URL=http://localhost:7000
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: ci_frontend
+    ports:
+      - "7000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
