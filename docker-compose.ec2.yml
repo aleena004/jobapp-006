@@ -15,7 +15,7 @@ services:
     environment:
       - PORT=4000
       - MONGO_URI=mongodb://jobapp_mongo:27017/myappdb
-      - FRONTEND_URL=http://34.229.153.230
+      - FRONTEND_URL=http://3.88.90.105
     depends_on:
       - mongo
     ports:
