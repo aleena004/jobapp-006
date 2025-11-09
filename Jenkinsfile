@@ -16,7 +16,7 @@ pipeline {
         stage('Build Containers') {
             steps {
                 script {
-                    sh 'docker compose -f docker-compose.cicd.yml build'
+                    sh 'docker-compose -f docker-compose.cicd.yml build'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Run Containers') {
             steps {
                 script {
-                    sh 'docker compose -f docker-compose.cicd.yml up -d'
+                    sh 'docker-compose -f docker-compose.cicd.yml up -d'
                 }
             }
         }
