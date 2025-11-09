@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: jobapp_mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    image: aleena004/job-app-backend:latest
+    container_name: job-app_backend
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://jobapp_mongo:27017/myappdb
+      - FRONTEND_URL=http://34.229.153.230
+    depends_on:
+      - mongo
+    ports:
+      - "5000:4000"
+
+  frontend:
+    image: aleena004/job-app-frontend:latest
+    container_name: job-app_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mongo_data:
+
